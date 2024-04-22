@@ -11,8 +11,7 @@ const TweetButton = (props: TweetButtonProps) => {
       href="/"
       className={
         twMerge(
-          `
-          rounded-full 
+          `rounded-full 
           h-14
           p-4
           lg:w-full
@@ -24,7 +23,7 @@ const TweetButton = (props: TweetButtonProps) => {
           props.className
         )}
     >
-      <FaFeather size={24} color="white" />
+      <FaFeather size={24} color="white" className="lg:hidden" />
       <span className="hidden lg:block" >Tweet</span>
     </Link>
   )

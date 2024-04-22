@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Sidebar from '@/components/organisms/Sidebar'
+import FollowBar from '@/components/atoms/FollowBar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -31,6 +32,7 @@ export default function RootLayout({
               ">
                 {children}
               </div>
+              <FollowBar />
             </div>
           </div>
         </main>

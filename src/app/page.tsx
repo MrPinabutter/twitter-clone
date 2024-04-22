@@ -1,7 +1,9 @@
+import Header from "@/components/molecules/Header";
+
 export default function Home() {
   return (
-    <div className="text-sky-500">
-      Hello world!
-    </div>
+    <>
+      <Header label="Home" />
+    </>
   )
 }

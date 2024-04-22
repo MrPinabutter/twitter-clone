@@ -21,28 +21,14 @@ const SidebarItem = ({ label, href, icon: Icon, onClick }: SideBarItemProps) => 
       <div className="
         relative 
         rounded-full 
-        h-14 w-14 
+        h-14 w-14 lg:w-auto
+        lg:py-3 lg:px-4
+        gap-4
         flex items-center justify-center
         hover:bg-slate-300
         hover:bg-opacity-10
         transition
-        lg:hidden
       ">
-        <Icon size={24} color="white" />
-      </div>
-
-      <div className="
-        relative 
-        hidden 
-        lg:flex 
-        items-center 
-        gap-4 
-        py-3 px-4
-        rounded-full 
-        hover:bg-slate-300 
-        transition
-        hover:bg-opacity-10"
-      >
         <Icon size={24} color="white" />
         <p className="hidden lg:block text-white">
           {label}
