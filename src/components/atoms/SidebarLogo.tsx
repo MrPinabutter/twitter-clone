@@ -2,7 +2,6 @@ import Link from "next/link";
 import { BsTwitter } from "react-icons/bs";
 
 const SidebarLogo = () => {
-
   return (
     <Link
       href={"/"}
@@ -14,10 +13,11 @@ const SidebarLogo = () => {
         hover:bg-blue-300
         hover:bg-opacity-10
         transition
-      ">
+      "
+    >
       <BsTwitter size={28} color="white" />
     </Link>
-  )
-}
+  );
+};
 
 export default SidebarLogo;

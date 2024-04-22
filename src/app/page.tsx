@@ -5,5 +5,5 @@ export default function Home() {
     <>
       <Header label="Home" />
     </>
-  )
+  );
 }

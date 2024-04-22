@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
@@ -10,11 +10,11 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ label, showBackArrow }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   const handleBack = useCallback(() => {
-    router.back()
-  }, [router])
+    router.back();
+  }, [router]);
 
   return (
     <header className="border-b border-neutral-800 p-5">
@@ -27,11 +27,11 @@ const Header: React.FC<HeaderProps> = ({ label, showBackArrow }) => {
             className="cursor-pointer hover:opacity-70 transition"
           />
         )}
-        
+
         <span className="text-white font-semibold">{label}</span>
       </div>
     </header>
-  )
-}
+  );
+};
 
 export default Header;

@@ -6,9 +6,15 @@ export interface SideBarItemProps {
   href: string;
   icon: IconType;
   onClick?: () => void;
-}[]
+}
+[];
 
-const SidebarItem = ({ label, href, icon: Icon, onClick }: SideBarItemProps) => {
+const SidebarItem = ({
+  label,
+  href,
+  icon: Icon,
+  onClick,
+}: SideBarItemProps) => {
   return (
     <Link
       onClick={onClick}
@@ -18,7 +24,8 @@ const SidebarItem = ({ label, href, icon: Icon, onClick }: SideBarItemProps) => 
       "
       href={href}
     >
-      <div className="
+      <div
+        className="
         relative 
         rounded-full 
         h-14 w-14 lg:w-auto
@@ -28,14 +35,14 @@ const SidebarItem = ({ label, href, icon: Icon, onClick }: SideBarItemProps) => 
         hover:bg-slate-300
         hover:bg-opacity-10
         transition
-      ">
+      "
+      >
         <Icon size={24} color="white" />
-        <p className="hidden lg:block text-white">
-          {label}
-        </p>
+
+        <p className="hidden lg:block text-white">{label}</p>
       </div>
     </Link>
-  )
-}
+  );
+};
 
 export default SidebarItem;
