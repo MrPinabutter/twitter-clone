@@ -1,8 +1,11 @@
-import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Sidebar from "@/components/organisms/Sidebar";
+
 import FollowBar from "@/components/atoms/FollowBar";
+import ModalLogin from "@/components/molecules/ModalLogin";
+import Sidebar from "@/components/organisms/Sidebar";
+
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,11 +21,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt">
+      <ModalLogin />
+
       <body className={inter.className}>
         <main className="h-screen bg-black">
           <div className="container h-full mx-auto lx:px-30 max-w-6xl">
             <div className="grid grid-cols-4 h-full">
               <Sidebar />
+
               <div
                 className="
                 col-span-3 
@@ -34,6 +40,7 @@ export default function RootLayout({
               >
                 {children}
               </div>
+
               <FollowBar />
             </div>
           </div>

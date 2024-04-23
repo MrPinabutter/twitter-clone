@@ -1,9 +1,10 @@
 "use client";
+
+import { BiLogOut } from "react-icons/bi";
 import { BsBellFill, BsHouseFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import SidebarItem, { SideBarItemProps } from "../atoms/SidebarItem";
 import SidebarLogo from "../atoms/SidebarLogo";
-import { BiLogOut } from "react-icons/bi";
 import TweetButton from "../atoms/TweetButton";
 
 const Sidebar = () => {
@@ -33,6 +34,7 @@ const Sidebar = () => {
           {items.map((item) => (
             <SidebarItem key={item.href} {...item} />
           ))}
+
           <SidebarItem
             href="#"
             icon={BiLogOut}

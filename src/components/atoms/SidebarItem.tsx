@@ -39,7 +39,7 @@ const SidebarItem = ({
       >
         <Icon size={24} color="white" />
 
-        <p className="hidden lg:block text-white">{label}</p>
+        <span className="hidden lg:block text-white">{label}</span>
       </div>
     </Link>
   );
