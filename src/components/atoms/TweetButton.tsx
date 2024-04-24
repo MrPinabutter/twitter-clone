@@ -1,16 +1,24 @@
+import useAuthModal from "@/hooks/useAuthModal";
 import Link, { LinkProps } from "next/link";
 import { FaFeather } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
 
-interface TweetButtonProps extends Omit<LinkProps, "href"> {
+interface TweetButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
 const TweetButton = (props: TweetButtonProps) => {
+  const { onOpen } = useAuthModal();
+
+  const handleClick = () => {
+    onOpen("login-modal");
+  };
+
   return (
-    <Link
+    <button
       {...props}
-      href="/"
+      onClick={handleClick}
       className={twMerge(
         `rounded-full 
           h-14
@@ -26,7 +34,7 @@ const TweetButton = (props: TweetButtonProps) => {
     >
       <FaFeather size={24} color="white" className="lg:hidden" />
       <span className="hidden lg:block">Tweet</span>
-    </Link>
+    </button>
   );
 };
 
