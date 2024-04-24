@@ -6,6 +6,9 @@ import ModalLogin from "@/components/molecules/ModalLogin";
 import Sidebar from "@/components/organisms/Sidebar";
 
 import "./globals.css";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import { Suspense } from "react";
+import ModalRegister from "@/components/molecules/ModalRegister";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,30 +24,38 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt">
-      <ModalLogin />
-
       <body className={inter.className}>
-        <main className="h-screen bg-black">
-          <div className="container h-full mx-auto lx:px-30 max-w-6xl">
-            <div className="grid grid-cols-4 h-full">
-              <Sidebar />
+        <ReactQueryProvider>
+          <main className="h-screen bg-black">
+            <div className="container h-full mx-auto lx:px-30 max-w-6xl">
+              <div className="grid grid-cols-4 h-full">
+                <Sidebar />
 
-              <div
-                className="
-                col-span-3 
-                lg:col-span-2 
-                h-full 
-                border-x 
-                border-neutral-800
-              "
-              >
-                {children}
+                <div
+                  className="
+                    col-span-3 
+                    lg:col-span-2 
+                    h-full 
+                    border-x 
+                    border-neutral-800
+                  "
+                >
+                  {children}
+                </div>
+
+                <FollowBar />
               </div>
-
-              <FollowBar />
             </div>
-          </div>
-        </main>
+          </main>
+
+          <Suspense fallback={<div></div>}>
+            <ModalLogin />
+          </Suspense>
+
+          <Suspense fallback={<div></div>}>
+            <ModalRegister />
+          </Suspense>
+        </ReactQueryProvider>
       </body>
     </html>
   );

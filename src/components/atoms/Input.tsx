@@ -5,7 +5,11 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 const Input: React.FC<InputProps> = ({ className, ...rest }) => {
   return (
     <>
-      <input {...rest} className={twMerge(className, `
+      <input
+        {...rest}
+        className={twMerge(
+          className,
+          `
         w-full
         p-4
         text-lg
@@ -21,7 +25,11 @@ const Input: React.FC<InputProps> = ({ className, ...rest }) => {
         disabled:bg-neutral-900
         disabled:opacity-70
         disabled:cursor-not-allowed
-      `)} />
+      `
+        )}
+      />
     </>
   );
 };
+
+export default Input;

@@ -4,14 +4,15 @@ import Input from "@/components/atoms/Input";
 import useAuthModal from "@/hooks/useAuthModal";
 import { login } from "@/services/auth.services";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "./Modal";
 
 const ModalLogin = () => {
   const { isOpen, onClose, toggleModal } = useAuthModal();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
 
   const mutation = useMutation({
     mutationFn: async (data: { password: string; email: string }) => {
@@ -23,7 +24,7 @@ const ModalLogin = () => {
   const onToggle = () => {
     if (mutation.isPending) return;
 
-    toggleModal("register-modal");
+    toggleModal("login-modal");
   };
 
   const bodyContent = (
@@ -32,6 +33,20 @@ const ModalLogin = () => {
         placeholder="E-mail"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        disabled={mutation.isPending}
+      />
+
+      <Input
+        placeholder="Nome"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        disabled={mutation.isPending}
+      />
+
+      <Input
+        placeholder="Username"
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
         disabled={mutation.isPending}
       />
 
@@ -48,12 +63,12 @@ const ModalLogin = () => {
   const footerContent = (
     <div className="text-neutral-400 text-center mt-4">
       <span>
-        First time using Twitter?{" "}
+        Already have an account?{" "}
         <span
           className="text-white cursor-pointer hover:underline"
           onClick={onToggle}
         >
-          Create an account
+          Sign in
         </span>
       </span>
     </div>
@@ -61,11 +76,11 @@ const ModalLogin = () => {
 
   return (
     <Modal
-      title="Login"
-      isOpen={isOpen("login-modal")}
-      onClose={() => onClose("login-modal")}
+      title="Create an account"
+      isOpen={isOpen("register-modal")}
+      onClose= {() => onClose("register-modal")}
       disabled={mutation.isPending}
-      actionLabel="Sign in"
+      actionLabel="Register"
       onSubmit={() => mutation.mutate({ email, password })}
       body={bodyContent}
       footer={footerContent}
