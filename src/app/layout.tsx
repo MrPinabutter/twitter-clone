@@ -5,10 +5,14 @@ import FollowBar from "@/components/atoms/FollowBar";
 import ModalLogin from "@/components/molecules/ModalLogin";
 import Sidebar from "@/components/organisms/Sidebar";
 
-import "./globals.css";
+import ModalRegister from "@/components/molecules/ModalRegister";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { Suspense } from "react";
-import ModalRegister from "@/components/molecules/ModalRegister";
+import "./globals.css";
+
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,11 +21,11 @@ export const metadata: Metadata = {
   description: "",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) {  
   return (
     <html lang="pt">
       <body className={inter.className}>
@@ -56,6 +60,8 @@ export default function RootLayout({
             <ModalRegister />
           </Suspense>
         </ReactQueryProvider>
+
+        <ToastContainer />
       </body>
     </html>
   );

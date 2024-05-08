@@ -4,7 +4,9 @@ import Input from "@/components/atoms/Input";
 import useAuthModal from "@/hooks/useAuthModal";
 import { login } from "@/services/auth.services";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import Modal from "./Modal";
 
 const ModalLogin = () => {
@@ -12,13 +14,33 @@ const ModalLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
 
   const mutation = useMutation({
-    mutationFn: async (data: { password: string; email: string }) => {
-      return await login(data);
+    mutationFn: async (data: {
+      password: string;
+      email: string;
+      name: string;
+      username: string;
+    }) => {
+      const res = await login(data);
+
+      toast.success("Account created. 😍");
+
+      signIn("credentials", {
+        email,
+        password,
+      });
+
+      onClose("register-modal");
+
+      return res;
     },
     onSuccess: onClose,
+    onError: (e) => {
+      toast.error("Something when wrong 🥲");
+      console.error(e);
+    },
   });
 
   const onToggle = () => {
@@ -45,8 +67,8 @@ const ModalLogin = () => {
 
       <Input
         placeholder="Username"
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
         disabled={mutation.isPending}
       />
 
@@ -78,10 +100,17 @@ const ModalLogin = () => {
     <Modal
       title="Create an account"
       isOpen={isOpen("register-modal")}
-      onClose= {() => onClose("register-modal")}
+      onClose={() => onClose("register-modal")}
       disabled={mutation.isPending}
       actionLabel="Register"
-      onSubmit={() => mutation.mutate({ email, password })}
+      onSubmit={() =>
+        mutation.mutate({
+          email,
+          password,
+          name,
+          username,
+        })
+      }
       body={bodyContent}
       footer={footerContent}
     />
