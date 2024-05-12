@@ -1,9 +1,14 @@
 import bcrypt from "bcrypt";
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions, getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prisma from "@/libs/prismadb";
+import {
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from "next";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -39,7 +44,18 @@ export const authOptions: NextAuthOptions = {
   ],
 };
 
-export default NextAuth({
+export function auth(
+  ...args:
+    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
+    | [NextApiRequest, NextApiResponse]
+    | []
+) {
+  return getServerSession(...args, authOptions);
+}
+
+console.log(process.env.NEXTAUTH_JWT_SECRET);
+
+const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
   debug: process.env.NODE_ENV === "development",
   session: {
@@ -51,3 +67,5 @@ export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   ...authOptions,
 });
+
+export { handler as GET, handler as POST };

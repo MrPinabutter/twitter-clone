@@ -2,7 +2,7 @@
 
 import Input from "@/components/atoms/Input";
 import useAuthModal from "@/hooks/useAuthModal";
-import { login } from "@/services/auth.services";
+import { register } from "@/services/auth.services";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
@@ -23,14 +23,18 @@ const ModalLogin = () => {
       name: string;
       username: string;
     }) => {
-      const res = await login(data);
+      const res = await register(data);
 
       toast.success("Account created. 😍");
 
-      signIn("credentials", {
-        email,
-        password,
-      });
+      signIn(
+        "credentials",
+        {},
+        {
+          email,
+          password,
+        }
+      );
 
       onClose("register-modal");
 

@@ -22,7 +22,7 @@ const SidebarItem = ({
         flex flex-row
         items-center
       "
-      href={href}
+      href={""}
     >
       <div
         className="

@@ -2,8 +2,8 @@
 
 import Input from "@/components/atoms/Input";
 import useAuthModal from "@/hooks/useAuthModal";
-import { login } from "@/services/auth.services";
 import { useMutation } from "@tanstack/react-query";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 import Modal from "./Modal";
 
@@ -14,16 +14,23 @@ const ModalLogin = () => {
   const [password, setPassword] = useState("");
 
   const mutation = useMutation({
-    mutationFn: async (data: { password: string; email: string }) => {
-      return await login(data);
+    mutationFn: async () => {
+      await signIn("credentials", {
+        email,
+        password,
+        callbackUrl: '/'
+      });
     },
-    onSuccess: onClose,
   });
 
-  const onToggle = () => {
+  const onToggle = async () => {
     if (mutation.isPending) return;
 
     toggleModal("register-modal");
+  };
+
+  const onSubmit = async () => {
+    mutation.mutate();
   };
 
   const bodyContent = (
@@ -66,7 +73,7 @@ const ModalLogin = () => {
       onClose={() => onClose("login-modal")}
       disabled={mutation.isPending}
       actionLabel="Sign in"
-      onSubmit={() => mutation.mutate({ email, password })}
+      onSubmit={onSubmit}
       body={bodyContent}
       footer={footerContent}
     />
