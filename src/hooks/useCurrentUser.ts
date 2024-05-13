@@ -1,23 +1,17 @@
-'use client'
-
-import { getUser } from "@/services/auth.services";
-import { useMutation } from "@tanstack/react-query";
+import { getCurrentUser } from "@/services/auth.services";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
 const useCurrentUser = () => {
-  const { data, error, isPending, mutate } = useMutation({
-    mutationFn: getUser,
+  const { data, error, isPending } = useQuery({
+    queryFn: getCurrentUser,
+    queryKey: ["user-data"],
   });
-
-  useEffect(() => {
-    mutate();
-  }, [])
 
   return {
     data,
     error,
     isPending,
-    mutate,
   };
 };
 

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 import { signOut } from "next-auth/react";
@@ -22,11 +22,13 @@ const Sidebar = () => {
       label: "Notifications",
       href: "/notifications",
       icon: BsBellFill,
+      isProtected: true,
     },
     {
       label: "Profile",
       href: "/users/:id",
       icon: FaUser,
+      isProtected: true,
     },
   ];
 
@@ -41,7 +43,7 @@ const Sidebar = () => {
 
           {currentUser && (
             <SidebarItem
-              href="#"
+              href=""
               icon={BiLogOut}
               label="Logout"
               onClick={() => signOut()}

@@ -1,11 +1,14 @@
-import Link from "next/link";
+import useAuthModal from "@/hooks/useAuthModal";
+import useCurrentUser from "@/hooks/useCurrentUser";
 import { IconType } from "react-icons";
+import { useRouter } from "next/navigation";
 
 export interface SideBarItemProps {
   label: string;
   href: string;
   icon: IconType;
   onClick?: () => void;
+  isProtected?: boolean;
 }
 [];
 
@@ -14,15 +17,31 @@ const SidebarItem = ({
   href,
   icon: Icon,
   onClick,
+  isProtected,
 }: SideBarItemProps) => {
+  const { push } = useRouter()
+  const { onOpen } = useAuthModal();
+  const { data } = useCurrentUser();
+
+  const handleClick = () => {
+    if (onClick) return onClick;
+
+    if (isProtected && !data) {
+      onOpen("login-modal");
+    }
+
+    if (href) {
+      push(href);
+    }
+  };
+
   return (
-    <Link
-      onClick={onClick}
+    <button
+      onClick={handleClick}
       className="
         flex flex-row
         items-center
       "
-      href={""}
     >
       <div
         className="
@@ -41,7 +60,7 @@ const SidebarItem = ({
 
         <span className="hidden lg:block text-white">{label}</span>
       </div>
-    </Link>
+    </button>
   );
 };
 

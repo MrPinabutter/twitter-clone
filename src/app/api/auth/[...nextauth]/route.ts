@@ -53,8 +53,6 @@ export function auth(
   return getServerSession(...args, authOptions);
 }
 
-console.log(process.env.NEXTAUTH_JWT_SECRET);
-
 const handler = NextAuth({
   adapter: PrismaAdapter(prisma),
   debug: process.env.NODE_ENV === "development",
