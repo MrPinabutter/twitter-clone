@@ -8,6 +8,20 @@ export const register = async (params: LoginProps) => {
   return data;
 };
 
+type UpdateUserProps = {
+  name: string;
+  username: string;
+  profileImage: string;
+  coverImage: string;
+  bio: string;
+};
+
+export const updateUser = async (params: UpdateUserProps) => {
+  const { data } = await api.patch("/api/edit", params);
+
+  return data;
+};
+
 export const getCurrentUser = async () => (await api.get(`/api/current`)).data;
 
 export const getUsers = async () => (await api.get(`/api/users`)).data;

@@ -2,7 +2,7 @@ import { getUserById } from "@/services/auth.services";
 import { useQuery } from "@tanstack/react-query";
 
 const useUser = (id: string) => {
-  const { data, error, isPending } = useQuery({
+  const { data, error, isPending, refetch } = useQuery({
     queryFn: () => getUserById(id),
     queryKey: ["user-data", id],
   });
@@ -10,6 +10,7 @@ const useUser = (id: string) => {
   return {
     data,
     error,
+    refetch,
     isPending,
   };
 };

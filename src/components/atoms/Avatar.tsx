@@ -33,7 +33,7 @@ const Avatar: React.FC<AvatarProps> = ({ userId, hasBorder, isLarge }) => {
       onClick={onClick}
       className={twMerge(
         "h-10 w-10  rounded-full hover:opacity-90 transition relative",
-        hasBorder && "border-4 border-black hover:opacity-100 hover:brightness-125",
+        hasBorder && "border-4 border-black hover:opacity-100 hover:brightness-110",
         isLarge && "h-32 w-32"
       )}
     >

@@ -13,6 +13,7 @@ import "./globals.css";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import ModalEdit from "@/components/molecules/ModalEdit";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -59,9 +60,13 @@ export default async function RootLayout({
           <Suspense fallback={<div></div>}>
             <ModalRegister />
           </Suspense>
+
+          <Suspense fallback={<div></div>}>
+            <ModalEdit />
+          </Suspense>
         </ReactQueryProvider>
 
-        <ToastContainer />
+        <ToastContainer theme="dark" />
       </body>
     </html>
   );
