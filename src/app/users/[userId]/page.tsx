@@ -3,6 +3,7 @@
 import Header from "@/components/molecules/Header";
 import UserBio from "@/components/molecules/UserBio";
 import UserHero from "@/components/molecules/UserHero";
+import PostFeed from "@/components/organisms/PostFeed";
 import useUser from "@/hooks/useUser";
 import { MoonLoader } from "react-spinners";
 
@@ -22,6 +23,7 @@ export default function Home({ params }: { params: { userId: string } }) {
       <Header showBackArrow label={user?.name} />
       <UserHero userId={params.userId} />
       <UserBio userId={params.userId} />
+      <PostFeed userId={params.userId} />
     </>
   );
 }

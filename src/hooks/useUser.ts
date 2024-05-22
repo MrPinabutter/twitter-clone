@@ -5,6 +5,7 @@ const useUser = (id: string) => {
   const { data, error, isPending, refetch } = useQuery({
     queryFn: () => getUserById(id),
     queryKey: ["user-data", id],
+    enabled: !!id,
   });
 
   return {

@@ -1,5 +1,6 @@
 import prisma from "@/libs/prismadb";
 import serverAuth from "@/libs/serverAuth";
+import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -24,16 +25,17 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(
-  req: Request,
-  { params }: { params: { userId: string } }
-) {
+export async function GET(req: NextApiRequest) {
+  const url = req.url ? new URL(req.url) : undefined;
+  const searchParams = url ? new URLSearchParams(url.search) : undefined;
+  const userId = searchParams?.get("userId");
+
   try {
     const posts = await prisma.post.findMany({
-      ...(params.userId && typeof params.userId === "string"
+      ...(userId && typeof userId === "string"
         ? {
             where: {
-              userId: params.userId,
+              userId,
             },
           }
         : {}),
@@ -47,10 +49,9 @@ export async function GET(
     });
 
     return NextResponse.json(posts, { status: 200 });
-
-    return;
   } catch (error) {
     console.log(error);
+
     return NextResponse.json(
       { message: "An error occurred", data: error },
       { status: 400 }
