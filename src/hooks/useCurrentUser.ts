@@ -1,6 +1,5 @@
 import { getCurrentUser } from "@/services/auth.services";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 const useCurrentUser = () => {
   const { data, error, isPending, refetch } = useQuery({

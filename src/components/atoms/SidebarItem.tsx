@@ -1,7 +1,7 @@
 import useAuthModal from "@/hooks/useAuthModal";
 import useCurrentUser from "@/hooks/useCurrentUser";
-import { IconType } from "react-icons";
 import { useRouter } from "next/navigation";
+import { IconType } from "react-icons";
 
 export interface SideBarItemProps {
   label: string;
@@ -9,6 +9,7 @@ export interface SideBarItemProps {
   icon: IconType;
   onClick?: () => void;
   isProtected?: boolean;
+  alert?: boolean;
 }
 [];
 
@@ -17,14 +18,15 @@ const SidebarItem = ({
   href,
   icon: Icon,
   onClick,
+  alert,
   isProtected,
 }: SideBarItemProps) => {
-  const { push } = useRouter()
+  const { push } = useRouter();
   const { onOpen } = useAuthModal();
   const { data } = useCurrentUser();
 
   const handleClick = () => {
-    if (onClick) return onClick;
+    if (onClick) return onClick();
 
     if (isProtected && !data) {
       onOpen("login-modal");
@@ -45,7 +47,6 @@ const SidebarItem = ({
     >
       <div
         className="
-        relative 
         rounded-full 
         h-14 w-14 lg:w-auto
         lg:py-3 lg:px-4
@@ -56,7 +57,12 @@ const SidebarItem = ({
         transition
       "
       >
-        <Icon size={24} color="white" />
+        <div className="relative">
+          <Icon size={24} color="white" />
+          {alert ? (
+            <div className="bg-sky-400 absolute -top-1.5 -right-1.5 border w-3.5 h-3.5 rounded-full border-black" />
+          ) : null}
+        </div>
 
         <span className="hidden lg:block text-white">{label}</span>
       </div>

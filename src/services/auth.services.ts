@@ -28,3 +28,8 @@ export const getUsers = async () => (await api.get(`/api/users`)).data;
 
 export const getUserById = async (id: string) =>
   (await api.get(`/api/users/${id}`)).data;
+
+export const getUserNotifications = async () =>
+  (
+    await api.get(`/api/notifications`)
+  ).data;

@@ -1,4 +1,5 @@
 import useAuthModal from "@/hooks/useAuthModal";
+import useCurrentUser from "@/hooks/useCurrentUser";
 import Link, { LinkProps } from "next/link";
 import { FaFeather } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
@@ -10,9 +11,13 @@ interface TweetButtonProps
 
 const TweetButton = (props: TweetButtonProps) => {
   const { onOpen } = useAuthModal();
-
+  const {data: currentUser} = useCurrentUser();
   const handleClick = () => {
-    onOpen("login-modal");
+    if(currentUser) {
+      // TODO: Add open tweet
+    } else {
+      onOpen("login-modal");
+    }
   };
 
   return (

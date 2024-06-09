@@ -40,7 +40,9 @@ export default async function RootLayout({
                   className="
                     col-span-3 
                     lg:col-span-2 
-                    h-full 
+                    h-full
+                    max-h-screen
+                    overflow-y-auto
                     border-x 
                     border-neutral-800
                   "

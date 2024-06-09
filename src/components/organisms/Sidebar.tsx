@@ -22,6 +22,7 @@ const Sidebar = () => {
       label: "Notifications",
       href: "/notifications",
       icon: BsBellFill,
+      alert: currentUser?.hasNotification,
       isProtected: true,
     },
     {
@@ -46,7 +47,7 @@ const Sidebar = () => {
               href=""
               icon={BiLogOut}
               label="Logout"
-              onClick={() => signOut()}
+              onClick={signOut}
             />
           )}
 
