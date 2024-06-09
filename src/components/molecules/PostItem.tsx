@@ -7,19 +7,22 @@ import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import Avatar from "../atoms/Avatar";
 import { TbMessage } from "react-icons/tb";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { FaArrowsRotate } from "react-icons/fa6";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import useLike from "@/hooks/useLike";
+import { twMerge } from "tailwind-merge";
 
 interface PostItemProps {
-  userId: string;
   data: Record<string, any>;
+  userId?: string;
 }
 
-const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
+const PostItem: React.FC<PostItemProps> = ({ data, userId }) => {
   const router = useRouter();
   const { toggleModal } = useAuthModal();
 
-  const { data: currentUser } = useUser(userId);
+  const { hasLiked, toggleLike } = useLike(data?.id, data?.user?.id);
 
   const goToUser = useCallback(
     (e: any) => {
@@ -37,9 +40,9 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
     (e: any) => {
       e.stopPropagation();
 
-      toggleModal("login-modal");
+      toggleLike();
     },
-    [toggleModal]
+    [toggleLike]
   );
 
   const onRepost = () => {};
@@ -119,7 +122,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
 
             <button
               onClick={onLike}
-              className="
+              className={twMerge(`
                 h-9 w-9
                 flex flex-row 
                 items-center
@@ -129,12 +132,16 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
                 gap-2 
                 transition 
                 relative rounded-full 
-              "
+              `, hasLiked ? "text-pink-500" : "text-neutral-500 hover:text-pink-500")}
             >
-              <AiOutlineHeart size={20} />
+              {hasLiked ? (
+                <AiFillHeart size={20} />
+              ) : (
+                <AiOutlineHeart size={20}/>
+              )}
 
               <span className="absolute right-0 translate-x-[80%]">
-                {data.likes?.length}
+                {data.likedIds?.length}
               </span>
             </button>
           </div>
