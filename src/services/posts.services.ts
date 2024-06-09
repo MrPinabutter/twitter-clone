@@ -15,6 +15,9 @@ export const getPost = async (postId?: string) =>
 export const createPost = (data: { body: string }) =>
   api.post("/api/post", data);
 
+export const createComment = (data: { body: string; postId?: string }) =>
+  api.post("/api/comments", data);
+
 export const likePost = async (postId: string) =>
   (await api.post("/api/like", { postId })).data;
 

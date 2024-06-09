@@ -1,17 +1,14 @@
 "use client";
 
-import useAuthModal from "@/hooks/useAuthModal";
-import useUser from "@/hooks/useUser";
+import useLike from "@/hooks/useLike";
 import { formatDistanceToNowStrict } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
-import Avatar from "../atoms/Avatar";
-import { TbMessage } from "react-icons/tb";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { FaArrowsRotate } from "react-icons/fa6";
-import useCurrentUser from "@/hooks/useCurrentUser";
-import useLike from "@/hooks/useLike";
+import { TbMessage } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";
+import Avatar from "../atoms/Avatar";
 
 interface PostItemProps {
   data: Record<string, any>;
@@ -20,7 +17,6 @@ interface PostItemProps {
 
 const PostItem: React.FC<PostItemProps> = ({ data, userId }) => {
   const router = useRouter();
-  const { toggleModal } = useAuthModal();
 
   const { hasLiked, toggleLike } = useLike(data?.id, data?.user?.id);
 

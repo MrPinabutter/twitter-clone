@@ -3,6 +3,7 @@
 import Form from "@/components/molecules/Form";
 import Header from "@/components/molecules/Header";
 import PostItem from "@/components/molecules/PostItem";
+import CommentFeed from "@/components/organisms/CommentFeed";
 import usePost from "@/hooks/usePost";
 import { MoonLoader } from "react-spinners";
 
@@ -21,7 +22,8 @@ export default function PostView({ params }: { params: { postId: string } }) {
     <>
       <Header showBackArrow label={"Tweet"} />
       <PostItem data={post} />
-      <Form placeholder="Tweet your reply" />
+      <Form placeholder="Tweet your reply" postId={params.postId} isComment />
+      <CommentFeed posts={post.comments} />
     </>
   );
 }
